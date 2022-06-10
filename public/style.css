@@ -1,0 +1,105 @@
+* {
+  transition: all 100ms;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--secondary-font);
+  font-weight: 800 !important;
+}
+
+p,
+small,
+a,
+h6 {
+  font-family: var(--main-font);
+}
+
+.main-font {
+  font-family: var(--main-font);
+}
+
+.secondary-font {
+  font-family: var(--secondary-font);
+}
+
+body {
+  background-color: var(--primary) !important;
+  color: var(--secondary) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.lite-mode {
+  background-color: var(--secondary) !important;
+  color: var(--primary) !important;
+}
+
+.back-white {
+  background-color: #f5f3f7 !important;
+}
+
+.color-primary {
+  color: var(--primary) !important;
+}
+
+.color-secondary {
+  color: var(--secondary) !important;
+}
+
+.color-tertiary {
+  color: var(--tertiary) !important;
+}
+
+.back-secondary {
+  background-color: var(--secondary) !important;
+}
+
+.back-tertiary {
+  background-image: var(--tertiary) !important;
+}
+
+.color-quaternary {
+  color: rgb(82, 16, 129) !important;
+}
+
+.color-quaternary:hover {
+  color: indigo !important;
+}
+
+.back-quaternary {
+  background-image: var(--quaternary) !important;
+}
+
+.back-quaternary:hover {
+  background-color: var(--quaternary-dark) !important;
+}
+
+.back-success:hover {
+  background-color: lime;
+}
+
+.border-sm {
+  border: 1px solid indigo !important;
+}
+
+.invisible {
+  display: none !important;
+}
+
+i,
+button,
+.pointer {
+  cursor: pointer;
+}
+
+.map-container {
+  height: 400px;
+}
+
+ul {
+  list-style-position: inside;
+}
