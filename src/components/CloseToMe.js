@@ -41,14 +41,28 @@ export default function CloseToMe() {
       const prevPets = pets;
       if (title === 'Vistas') {
         setFilteredPets(
-          prevPets.filter((pet) => pet.data.vistaPor.includes(userId))
+          prevPets.filter(
+            (pet) =>
+              pet.data.vistaPor.includes(userId) &&
+              pet.data.encontradaPor.length == 0
+          )
         );
       } else if (title === 'Guardadas') {
         setFilteredPets(
-          prevPets.filter((pet) => pet.data.guardadaPor.includes(userId))
+          prevPets.filter(
+            (pet) =>
+              pet.data.guardadaPor.includes(userId) &&
+              pet.data.encontradaPor.length == 0
+          )
+        );
+      } else if (title === 'Encontradas') {
+        setFilteredPets(
+          prevPets.filter((pet) => pet.data.encontradaPor.length > 0)
         );
       } else if (title === 'Cerca de mí') {
-        setFilteredPets(null);
+        setFilteredPets(
+          prevPets.filter((pet) => pet.data.encontradaPor.length == 0)
+        );
       }
     }
 
@@ -59,7 +73,11 @@ export default function CloseToMe() {
     setTitle('Vistas');
     const prevPets = pets;
     setFilteredPets(
-      prevPets.filter((pet) => pet.data.vistaPor.includes(userId))
+      prevPets.filter(
+        (pet) =>
+          pet.data.vistaPor.includes(userId) &&
+          pet.data.encontradaPor.length == 0
+      )
     );
   }
 
@@ -67,7 +85,19 @@ export default function CloseToMe() {
     setTitle('Guardadas');
     const prevPets = pets;
     setFilteredPets(
-      prevPets.filter((pet) => pet.data.guardadaPor.includes(userId))
+      prevPets.filter(
+        (pet) =>
+          pet.data.guardadaPor.includes(userId) &&
+          pet.data.encontradaPor.length == 0
+      )
+    );
+  }
+
+  function filterFoundPets() {
+    setTitle('Encontradas');
+    const prevPets = pets;
+    setFilteredPets(
+      prevPets.filter((pet) => pet.data.encontradaPor.length > 0)
     );
   }
 
@@ -79,7 +109,6 @@ export default function CloseToMe() {
 
   function coso() {
     console.log(pets);
-    console.log(filteredPets);
   }
 
   return (
@@ -119,6 +148,13 @@ export default function CloseToMe() {
           onClick={() => filterSavedPets()}
         >
           Guardadas <i className="fa-fw	fa fa-bookmark"></i>
+        </Badge>
+        <Badge
+          className="p-2 border-sm color-quaternary pointer"
+          bg="back-secondary"
+          onClick={() => filterFoundPets()}
+        >
+          Encontradas <i className="fa-fw	fa fa-check"></i>
         </Badge>
         <Badge onClick={() => console.log(JSON.stringify(userData))}>
           Test

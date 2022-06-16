@@ -139,7 +139,7 @@ export default function UserRequest(props) {
         </Button>
       ) : (
         <Row className="d-flex justify-content-center">
-          <Col xs={12} lg={6} className="p-1">
+          <Col xs={12} lg={4} className="p-1">
             <Button
               className="back-quaternary secondary-font fw-bold"
               onClick={() =>
@@ -154,7 +154,7 @@ export default function UserRequest(props) {
               Ver medios de contacto
             </Button>
           </Col>
-          <Col xs={12} lg={6} className="p-1">
+          <Col xs={12} lg={4} className="p-1">
             <Button
               className="bg-secondary secondary-font fw-bold"
               style={{ border: 'none' }}
@@ -190,30 +190,29 @@ export default function UserRequest(props) {
               Cancelar solicitud
             </Button>
           </Col>
-        </Row>
-      )}
-      {props.mostrarBotonEncontrada && (
-        <Row>
-          <br />
-          <Button
-            className="bg-success back-success secondary-font fw-bold"
-            style={{ border: 'none' }}
-            onClick={() =>
-              props.markPetAsFound(
-                props.userId,
-                props.idSolicitante,
-                props.nombreUsuario,
-                props.idMascota,
-                props.nombreMascota,
-                props.imagenMascota,
-                props.setUserData,
-                props.userData,
-                props.detalles
-              )
-            }
-          >
-            Marcar como encontrada
-          </Button>
+          {props.mostrarBotonEncontrada && (
+            <Col xs={12} lg={4} className="p-1">
+              <Button
+                className="bg-success back-success secondary-font fw-bold"
+                style={{ border: 'none' }}
+                onClick={() =>
+                  props.markPetAsFound(
+                    props.userId,
+                    props.idSolicitante,
+                    props.nombreUsuario,
+                    props.idMascota,
+                    props.nombreMascota,
+                    props.imagenMascota,
+                    props.setUserData,
+                    props.userData,
+                    props.detalles
+                  )
+                }
+              >
+                Marcar como encontrada
+              </Button>
+            </Col>
+          )}
         </Row>
       )}
     </Row>
