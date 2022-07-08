@@ -394,7 +394,8 @@ export const handleSubmitPet = (
   file,
   detallesMascota,
   clearForm,
-  nombreUsuarioCreador
+  nombreUsuarioCreador,
+  redirectAfterLogin
 ) => {
   if (file == null) {
     alert('Seleccioná una imagen para subir');
@@ -433,6 +434,7 @@ export const handleSubmitPet = (
 
             clearForm();
             alert('Mascota cargada correctamente!');
+            redirectAfterLogin();
           })
           .catch((error) => {
             alert('Error cargando mascota: ' + error);
@@ -599,7 +601,8 @@ export const foundPetRequest = (
   imagenMascota,
   setUserData,
   userData,
-  detalles
+  detalles,
+  redirectAfterLogin
 ) => {
   if (imagenMascota == null) {
     alert('Seleccioná una imagen para subir');
@@ -654,6 +657,7 @@ export const foundPetRequest = (
                   },
                 ],
               });
+              redirectAfterLogin();
             });
           })
           .catch((e) => alert('Error enviando solicitud de mensaje: ' + e));
@@ -880,84 +884,51 @@ export const removeFromArray = (
   }
 };
 
-// export const removeFromArray = (
-//   userId,
-//   idMascota,
-//   idSolicitante,
-//   nombreUsuario,
-//   imagenMascota,
-//   nombreMascota,
-//   nombreDelArray,
-//   detalles
-// ) => {
-//   const userRef = doc(db, 'usuarios', userId);
-//   updateDoc(userRef, {
-//     [nombreDelArray]: arrayRemove({
-//       idMascota: idMascota,
-//       idSolicitante: idSolicitante,
-//       nombreUsuario: nombreUsuario,
-//       imagenMascota: imagenMascota,
-//       nombreMascota: nombreMascota,
-//     }),
-//   })
-//     .then((res) =>
-//       console.log(
-//         `Solicitud elminada! ${nombreDelArray} | ${idMascota} | ${idSolicitante} | ${nombreUsuario} | ${nombreDelArray} | ${imagenMascota} | ${nombreMascota}| ${nombreUsuario}`
-//       )
-//     )
-//     .catch((e) =>
-//       console.log('Error eliminando solicitud, intentá nuevamente! ' + e)
-//     );
-// };
+// Error Report Functions
 
-// export const deleteMessageRequest = (
-//   userId,
-//   idMascota,
-//   idSolicitante,
-//   nombreUsuario,
-//   imagenMascota,
-//   nombreMascota,
-//   nombreDelArrayEmisor,
-//   nombreDelArrayReceptor,
-//   userData,
-//   setUserData
-// ) => {
-//   try {
-//     //Eliminamos del emisor
-//     removeFromArray(
-//       userId,
-//       idMascota,
-//       idSolicitante,
-//       nombreUsuario,
-//       imagenMascota,
-//       nombreMascota,
-//       nombreDelArrayEmisor
-//     );
-//     //Eliminamos del repceptor
-//     removeFromArray(
-//       idSolicitante,
-//       idMascota,
-//       userId,
-//       userData.nombreUsuario,
-//       imagenMascota,
-//       nombreMascota,
-//       nombreDelArrayReceptor
-//     );
-//   } catch (e) {
-//     alert('Error eliminando solicitud: ' + e);
-//   } finally {
-//     const prevUserData = { ...userData };
+export const informError = (
+  detalles,
+  capturaPantalla,
+  clearForm,
+  redirectAfterLogin
+) => {
+  if (capturaPantalla) {
+    const fileName = capturaPantalla.name.replace(/\s/g, '');
+    const imageRef = ref(storage, `imagenes-error/${fileName}`);
+    const idError = nanoid();
 
-//     setUserData({
-//       ...prevUserData,
-//       usuariosPendientes: prevUserData.usuariosPendientes.filter(
-//         (pendiente) => pendiente.idMascota !== idMascota
-//       ),
-//     });
-
-//     alert('Solicitud de contacto eliminada!');
-//   }
-// };
+    uploadBytes(imageRef, capturaPantalla)
+      .then((snapshot) => {
+        return getDownloadURL(snapshot.ref);
+      })
+      .then((downloadURL) => {
+        setDoc(doc(db, 'informes-error', idError), {
+          detalles: detalles,
+          capturaPantalla: downloadURL,
+        })
+          .then((res) => {
+            clearForm();
+            alert(
+              'Gracias! Estaremos trabajando para resolver el inconveniente.'
+            );
+            redirectAfterLogin();
+          })
+          .catch((e) => alert('Error cargando informe: ' + e));
+      });
+  } else {
+    const idError = nanoid();
+    setDoc(doc(db, 'informes-error', idError), {
+      detalles: detalles,
+      capturaPantalla:
+        'https://firebasestorage.googleapis.com/v0/b/petifind-project.appspot.com/o/imagenes-error%2Fimage-not-available.png?alt=media&token=137cff6d-c281-4fc9-aa8c-b33828776a0b',
+    })
+      .then((res) => {
+        clearForm();
+        alert('Gracias! Estaremos trabajando para resolver el inconveniente.');
+      })
+      .catch((e) => alert('Error cargando informe: ' + e));
+  }
+};
 
 export const deleteMessageRequest = (
   userId,

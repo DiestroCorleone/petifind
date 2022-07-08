@@ -91,6 +91,17 @@ export default function NavBar() {
           </NavItem>
           <NavItem>
             <NavLink
+              tag={Link}
+              to="/informar-error"
+              className="color-secondary"
+              title="Informar error"
+              onClick={() => toggleNavbar()}
+            >
+              Informar error
+            </NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink
               className="color-secondary"
               onClick={() => {
                 signOutAccount(setIsUserLogged, setUserId, setUserData),

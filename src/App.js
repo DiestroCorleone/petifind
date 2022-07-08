@@ -15,6 +15,7 @@ import ContactRequests from './components/userComponents/ContactRequests';
 import ReportFoundPet from './components/formComponents/ReportFoundPet';
 import Footer from './components/Footer';
 import NotFound from './components/NotFound';
+import InformError from './components/formComponents/InformError';
 
 export default function App() {
   const [savedMarker, setSavedMarker] = useState([]);
@@ -39,6 +40,12 @@ export default function App() {
   });
   const [isDark, setIsDark] = useState(false);
   const [justLogged, setJustLogged] = useState(false);
+  // Test
+  const [pets, setPets] = useState([]);
+  const [filteredPets, setFilteredPets] = useState(null);
+  const [contactData, setContactData] = useState({});
+  const [showContactDataModal, setShowContactDataModal] = useState(false);
+  const [showFoundPetModal, setShowFoundPetModal] = useState(false);
 
   useEffect(() => {
     function toggleDarkMode() {
@@ -60,6 +67,21 @@ export default function App() {
     }
   }, [savedMarker]);
 
+  function handleContactDataModal(idSolicitante, nombreUsuario, nombreMascota) {
+    setContactData({
+      idSolicitante: idSolicitante,
+      nombreUsuario: nombreUsuario,
+      nombreMascota: nombreMascota,
+    });
+    setShowContactDataModal(
+      (prevShowContactDataModal) => !prevShowContactDataModal
+    );
+  }
+
+  function handleFoundPetModal() {
+    setShowFoundPetModal((prevFoundPetModal) => !prevFoundPetModal);
+  }
+
   return (
     <>
       <UserContext.Provider
@@ -76,6 +98,18 @@ export default function App() {
           setJustLogged,
           userData,
           setUserData,
+          pets,
+          setPets,
+          filteredPets,
+          setFilteredPets,
+          handleContactDataModal,
+          contactData,
+          setContactData,
+          showContactDataModal,
+          setShowContactDataModal,
+          showFoundPetModal,
+          setShowFoundPetModal,
+          handleFoundPetModal,
         }}
       >
         {isUserLogged && <Navbar />}
@@ -90,6 +124,7 @@ export default function App() {
                 <Route path="/encontrada" element={<ReportFoundPet />} />
                 <Route path="/perfil" element={<Profile />} />
                 <Route path="/solicitudes" element={<ContactRequests />} />
+                <Route path="/informar-error" element={<InformError />} />
               </>
             ) : (
               <>
@@ -98,6 +133,7 @@ export default function App() {
                 <Route path="/solicitudes" element={<ContactRequests />} />
                 <Route path="/cerca" element={<CloseToMe />} />
                 <Route path="/encontrada" element={<ReportFoundPet />} />
+                <Route path="/informar-error" element={<InformError />} />
                 {/* Borrar cuando termines */}
 
                 <Route

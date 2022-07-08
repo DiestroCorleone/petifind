@@ -6,6 +6,7 @@ import {
 } from '../../adapters/MapboxAdapters';
 import { handleSubmitPet } from '../../adapters/FirebaseAdapters';
 import { UserContext } from '../../context/UserContext';
+import { useNavigate } from 'react-router-dom';
 import { Button, Row, Col, Container, Form, ListGroup } from 'react-bootstrap';
 
 export default function ReportPet() {
@@ -28,6 +29,12 @@ export default function ReportPet() {
   const [fileInputKey, setFileInputKey] = useState('');
   const fetchApi = fetchMapboxApi;
   const suggestionSelection = selectSuggestion;
+
+  const navigate = useNavigate();
+
+  const redirectAfterLogin = () => {
+    navigate('/cerca');
+  }
 
   const handleSearchCity = (event) => {
     setWriting(true);
@@ -213,7 +220,8 @@ export default function ReportPet() {
                 selectedFile,
                 lostPetData.detalles,
                 clearForm,
-                lostPetData.nombreUsuarioCreador
+                lostPetData.nombreUsuarioCreador,
+                redirectAfterLogin
               )
             }
           >

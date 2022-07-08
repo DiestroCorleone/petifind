@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { foundPetRequest } from '../../adapters/FirebaseAdapters';
 import { UserContext } from '../../context/UserContext';
 import { Button, Container, Form } from 'react-bootstrap';
@@ -15,6 +15,12 @@ export default function ReportFoundPet(props) {
   });
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileInputKey, setFileInputKey] = useState('');
+
+  const navigate = useNavigate();
+
+  const redirectAfterLogin = () => {
+    navigate('/cerca');
+  }
 
   const handleChange = (event) => {
     setLostPetData((prevLostPetData) => {
@@ -104,8 +110,8 @@ export default function ReportFoundPet(props) {
                 selectedFile,
                 setUserData,
                 userData,
-                lostPetData.detalles
-                //clearForm
+                lostPetData.detalles,
+                redirectAfterLogin
               )
             }
           >

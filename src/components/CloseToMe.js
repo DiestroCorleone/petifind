@@ -8,33 +8,49 @@ import ContactDataModal from './userComponents/ContactDataModal';
 import FoundPetModal from './petComponents/FoundPetModal';
 
 export default function CloseToMe() {
-  const [pets, setPets] = useState([]);
-  const [filteredPets, setFilteredPets] = useState(null);
+  // const [pets, setPets] = useState([]);
+  // const [filteredPets, setFilteredPets] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { savedMarker, userId, userData } = useContext(UserContext);
-  const [showContactDataModal, setShowContactDataModal] = useState(false);
-  const [showFoundPetModal, setShowFoundPetModal] = useState(false);
-  const [contactData, setContactData] = useState({});
+  const {
+    savedMarker,
+    userId,
+    userData,
+    pets,
+    setPets,
+    filteredPets,
+    setFilteredPets,
+    contactData,
+    setContactData,
+    handleContactDataModal,
+    showContactDataModal,
+    setShowContactDataModal,
+    showFoundPetModal,
+    setShowFoundPetModal,
+    handleFoundPetModal,
+  } = useContext(UserContext);
+  // const [showContactDataModal, setShowContactDataModal] = useState(false);
+  // const [showFoundPetModal, setShowFoundPetModal] = useState(false);
+  // const [contactData, setContactData] = useState({});
   const [title, setTitle] = useState('Cerca de mí');
 
-  function handleContactDataModal(idSolicitante, nombreUsuario, nombreMascota) {
-    setContactData({
-      idSolicitante: idSolicitante,
-      nombreUsuario: nombreUsuario,
-      nombreMascota: nombreMascota,
-    });
-    setShowContactDataModal(
-      (prevShowContactDataModal) => !prevShowContactDataModal
-    );
-  }
+  // function handleContactDataModal(idSolicitante, nombreUsuario, nombreMascota) {
+  //   setContactData({
+  //     idSolicitante: idSolicitante,
+  //     nombreUsuario: nombreUsuario,
+  //     nombreMascota: nombreMascota,
+  //   });
+  //   setShowContactDataModal(
+  //     (prevShowContactDataModal) => !prevShowContactDataModal
+  //   );
+  // }
 
   useEffect(() => {
     getPetsByZone(setLoading, setPets, savedMarker.place);
   }, []);
 
-  function handleFoundPetModal() {
-    setShowFoundPetModal((prevFoundPetModal) => !prevFoundPetModal);
-  }
+  // function handleFoundPetModal() {
+  //   setShowFoundPetModal((prevFoundPetModal) => !prevFoundPetModal);
+  // }
 
   useEffect(() => {
     function updateFilteredPets() {
