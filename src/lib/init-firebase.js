@@ -6,12 +6,12 @@ import { getAuth } from 'firebase/auth';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: 'AIzaSyAvBTsQLaLIKzOgNCVmguq3IDF6izcrfd4',
-  authDomain: 'petifind-project.firebaseapp.com',
-  projectId: 'petifind-project',
-  storageBucket: 'petifind-project.appspot.com',
-  messagingSenderId: '387307252059',
-  appId: '1:387307252059:web:b348044f59321ebf38927e',
+  apiKey: '',
+  authDomain: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
 };
 
 // Initialize Firebase
